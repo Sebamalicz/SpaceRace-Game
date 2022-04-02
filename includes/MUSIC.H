@@ -2,7 +2,7 @@
 #define SPACERACE_MUSIC_H
 #include "types.h"
 
-typedef struct {
+typedef struct notes{
     int freq;
     int duration;
 } notes;

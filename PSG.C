@@ -16,8 +16,18 @@ void write_psg(int reg, UINT8 val)
 
 UINT8 read_psg(int reg)
 {
-	UINT8 placeholder;
-	return placeholder;
+	long old_ssp;
+  	int val = -1;
+
+  	old_ssp = Super(0);
+
+  	if (reg_is_valid(reg)) {
+    		*psg_reg_select = reg;
+    		val = *psg_reg_select;
+  	}
+
+  	Super(old_ssp);
+  	return val;
 }
 
 void set_tone(int channel, int tuning)
@@ -127,5 +137,34 @@ void set_noise(int tuning)
 
 void set_envelope(int shape, unsigned int sustain)
 {
-	
+	int shape_val;
+  	write_psg(ENVELOPE_FINE_REG, sustain);
+  	write_psg(ENVELOPE_ROUGH_REG, sustain);
+
+  	switch(shape) {
+    	case saw:
+      		shape_val = ENV_SAW_SHAPE;
+          	break;
+    	case saw_inv:
+      		shape_val = ENV_SAW_SHAPE_INV;
+          	break;
+    	case saw_period:
+      		shape_val = ENV_SAW_PERIOD_SHAPE;
+		break;
+    	case triangle:
+      		shape_val = ENV_TRIANGLE_SHAPE;
+          	break;
+    	case triangle_inv:
+      		shape_val = ENV_TRIANGLE_INV_SHAPE;
+          	break;
+    	case triangle_period:
+      		shape_val = ENV_TRIANGLE_PERIOD_SHAPE;
+          	break;
+    	case triangle_inv_period:
+      		shape_val = ENV_TRIANGLE_INV_PERIOD_SHAPE;
+         	 break;
+  	}
+
+  	write_psg(ENVELOPE_SHAPE_CONTROL_REG, shape_val);
+		
 }

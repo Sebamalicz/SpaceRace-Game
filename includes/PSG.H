@@ -28,6 +28,14 @@
 #define ENVELOPE_ROUGH_REG 0xc
 #define ENVELOPE_SHAPE_CONTROL_REG 0xd
 
+#define ENV_SAW_SHAPE 0xc
+#define ENV_SAW_SHAPE_INV 0x8
+#define ENV_SAW_PERIOD_SHAPE  0xf
+#define ENV_TRIANGLE_SHAPE 0xe
+#define ENV_TRIANGLE_INV_SHAPE 0xa
+#define ENV_TRIANGLE_PERIOD_SHAPE  0xd
+#define ENV_TRIANGLE_INV_PERIOD_SHAPE 0x00
+
 extern volatile char* psg_reg_select = 0xFF8800;
 extern volatile char* psg_reg_write  = 0xFF8802;
 

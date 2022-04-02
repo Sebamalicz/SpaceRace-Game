@@ -63,7 +63,7 @@ void enable_channel(int channel, int tone_on, int noise_on)
   int channel_val;
 
   switch(channel) {
-    case 0:
+    case ch_a:
       if (tone_only)
         channel_val = existing_mixer_val != -1 ?
                       existing_mixer_val & MIXER_TONE_CH_A : MIXER_TONE_CH_A;
@@ -75,7 +75,7 @@ void enable_channel(int channel, int tone_on, int noise_on)
                       existing_mixer_val & (MIXER_TONE_CH_A & MIXER_NOISE_CH_A) :
                       (MIXER_TONE_CH_A & MIXER_NOISE_CH_A);
           break;
-    case 1:
+    case ch_b:
       if (tone_only)
         channel_val = existing_mixer_val != -1 ?
                       existing_mixer_val & MIXER_TONE_CH_B : MIXER_TONE_CH_B;
@@ -87,7 +87,7 @@ void enable_channel(int channel, int tone_on, int noise_on)
                       existing_mixer_val & (MIXER_TONE_CH_B & MIXER_NOISE_CH_B) :
                       (MIXER_TONE_CH_B & MIXER_NOISE_CH_B);
           break;
-    case 2:
+    case ch_c:
       if (tone_only)
         channel_val = existing_mixer_val != -1 ?
                       existing_mixer_val & MIXER_TONE_CH_C : MIXER_TONE_CH_C;
@@ -99,6 +99,9 @@ void enable_channel(int channel, int tone_on, int noise_on)
                       existing_mixer_val & (MIXER_TONE_CH_C & MIXER_NOISE_CH_C) :
                       (MIXER_TONE_CH_C & MIXER_NOISE_CH_C);
           break;
+  }
+
+  write_psg(MIXER_REG, channel_val);
 	
 }
 

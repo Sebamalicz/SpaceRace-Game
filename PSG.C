@@ -70,53 +70,57 @@ void enable_channel(int channel, int tone_on, int noise_on)
 	bool noise_only;
 	bool tone_and_noise;
 	int existing_mixer_val;
-	int channel_val;
-	
-	tone_only = tone_on && !noise_on;
-	noise_only = !tone_one && noise_on;
-	tone_and_noise = tone_on && noise_on;
-	existing_mixer_val = read_psg(MIXER_REG);
+/*	bool tone_only = tone_on && !noise_on;
+	bool noise_only = !tone_on && noise_on;
+	bool tone_and_noise = tone_on && noise_on;
+	int existing_mixer_val = read_psg(MIXER_REG); */
+	UINT8 channel_val;
 
-  switch(channel) {
-    case ch_a:
-      if (tone_only)
-        channel_val = existing_mixer_val != -1 ?
-                      existing_mixer_val & MIXER_TONE_CH_A : MIXER_TONE_CH_A;
-      else if (noise_only)
-        channel_val = existing_mixer_val != -1 ?
-                      existing_mixer_val & MIXER_NOISE_CH_A : MIXER_NOISE_CH_A;
-      else if (tone_and_noise)
-        channel_val = existing_mixer_val != -1 ?
-                      existing_mixer_val & (MIXER_TONE_CH_A & MIXER_NOISE_CH_A) :
-                      (MIXER_TONE_CH_A & MIXER_NOISE_CH_A);
-          break;
-    case ch_b:
-      if (tone_only)
-        channel_val = existing_mixer_val != -1 ?
-                      existing_mixer_val & MIXER_TONE_CH_B : MIXER_TONE_CH_B;
-      else if (noise_only)
-        channel_val = existing_mixer_val != -1 ?
-                      existing_mixer_val & MIXER_NOISE_CH_B : MIXER_NOISE_CH_B;
-      else if (tone_and_noise)
-        channel_val = existing_mixer_val != -1 ?
-                      existing_mixer_val & (MIXER_TONE_CH_B & MIXER_NOISE_CH_B) :
-                      (MIXER_TONE_CH_B & MIXER_NOISE_CH_B);
-          break;
-    case ch_c:
-      if (tone_only)
-        channel_val = existing_mixer_val != -1 ?
-                      existing_mixer_val & MIXER_TONE_CH_C : MIXER_TONE_CH_C;
-      else if (noise_only)
-        channel_val = existing_mixer_val != -1 ?
-                      existing_mixer_val & MIXER_NOISE_CH_C : MIXER_NOISE_CH_C;
-      else if (tone_and_noise)
-        channel_val = existing_mixer_val != -1 ?
-                      existing_mixer_val & (MIXER_TONE_CH_C & MIXER_NOISE_CH_C) :
-                      (MIXER_TONE_CH_C & MIXER_NOISE_CH_C);
-          break;
-  }
+	switch(channel) {
+		case 1: /*How can this be ch_a if channel is an integer?*/
+		
+		if (tone_only)
+			channel_val = existing_mixer_val != -1 ?
+						existing_mixer_val & MIXER_TONE_CH_A : MIXER_TONE_CH_A;
+		else if (noise_only)
+			channel_val = existing_mixer_val != -1 ?
+						existing_mixer_val & MIXER_NOISE_CH_A : MIXER_NOISE_CH_A;
+		else if (tone_and_noise)
+			channel_val = existing_mixer_val != -1 ?
+						existing_mixer_val & (MIXER_TONE_CH_A & MIXER_NOISE_CH_A) :
+						(MIXER_TONE_CH_A & MIXER_NOISE_CH_A);
+			break;
+    
+		case 2: /*originally ch_b*/
+		
+		if (tone_only)
+			channel_val = existing_mixer_val != -1 ?
+						existing_mixer_val & MIXER_TONE_CH_B : MIXER_TONE_CH_B;
+		else if (noise_only)
+			channel_val = existing_mixer_val != -1 ?
+						existing_mixer_val & MIXER_NOISE_CH_B : MIXER_NOISE_CH_B;
+		else if (tone_and_noise)
+			channel_val = existing_mixer_val != -1 ?
+						existing_mixer_val & (MIXER_TONE_CH_B & MIXER_NOISE_CH_B) :
+						(MIXER_TONE_CH_B & MIXER_NOISE_CH_B);
+			break;
+    
+		case 3: /*originally ch_c*/
+		
+		if (tone_only)
+			channel_val = existing_mixer_val != -1 ?
+						existing_mixer_val & MIXER_TONE_CH_C : MIXER_TONE_CH_C;
+		else if (noise_only)
+			channel_val = existing_mixer_val != -1 ?
+						existing_mixer_val & MIXER_NOISE_CH_C : MIXER_NOISE_CH_C;
+		else if (tone_and_noise)
+			channel_val = existing_mixer_val != -1 ?
+						existing_mixer_val & (MIXER_TONE_CH_C & MIXER_NOISE_CH_C) :
+						(MIXER_TONE_CH_C & MIXER_NOISE_CH_C);
+			break;
+	}
 
-  write_psg(MIXER_REG, channel_val);
+	write_psg(MIXER_REG, channel_val);
 	
 }
 
@@ -136,8 +140,7 @@ void stop_sound()
 
 void set_noise(int tuning)
 {
-	wrtie_psg(NOISE_FREQUENCY_REG, tuning);
-	
+	write_psg(NOISE_FREQUENCY_REG, tuning);
 }
 
 void set_envelope(int shape, unsigned int sustain)
@@ -147,25 +150,25 @@ void set_envelope(int shape, unsigned int sustain)
   	write_psg(ENVELOPE_ROUGH_REG, sustain);
 
   	switch(shape) {
-    	case saw:
+    	case 1: /*How can this be saw if shape is int? originally saw*/
       		shape_val = ENV_SAW_SHAPE;
           	break;
-    	case saw_inv:
+    	case 2: /*originally saw_inv*/
       		shape_val = ENV_SAW_SHAPE_INV;
           	break;
-    	case saw_period:
+    	case 3: /*originally saw_period*/
       		shape_val = ENV_SAW_PERIOD_SHAPE;
 		break;
-    	case triangle:
+    	case 4: /*originally triangle*/
       		shape_val = ENV_TRIANGLE_SHAPE;
           	break;
-    	case triangle_inv:
+    	case 5: /*originally triangle_inv*/
       		shape_val = ENV_TRIANGLE_INV_SHAPE;
           	break;
-    	case triangle_period:
+    	case 6: /*originally triangle_period*/
       		shape_val = ENV_TRIANGLE_PERIOD_SHAPE;
           	break;
-    	case triangle_inv_period:
+    	case 7: /*originally triangle_inv_period*/
       		shape_val = ENV_TRIANGLE_INV_PERIOD_SHAPE;
          	 break;
   	}

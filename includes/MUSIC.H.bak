@@ -4,8 +4,7 @@
 
 #define NOTES_SZ 168
 
-typedef struct notes
-{
+typedef struct notes{
     int freq;
     int duration;
 } notes;

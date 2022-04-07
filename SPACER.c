@@ -43,6 +43,7 @@ int main()
 	
 	while(!quit && !gameOver)/*while q isn't pressed*/
 	{
+		/*Start Asynchronous*/
 		if(Cconis()) /*Checks for user input*/
 		{
 			ch = (char)Cnecin();
@@ -54,7 +55,9 @@ int main()
 			
 			spaceship_move(&model, ch);
 		}
+		/*End Asynchronous*/
 		
+		/*Start Synchronous*/
 		timeNow = get_time();
 		timeElapsed = timeNow - timeThen;
 		if(timeElapsed > 0)
@@ -67,20 +70,21 @@ int main()
 			gameOver = count_down(&model.time);
 			timeThen = timeNow;
 		}
+		/*End Synchronous*/
 		
 		if(swap_screens)
 		{
 			clear_qk(base);
 			render(&model, base);
-			Vsync();
 			set_video_base(base);
+			Vsync();
 		}
 		else
 		{
 			clear_qk(base2);
 			render(&model, base2);
-			Vsync();
 			set_video_base(base2);
+			Vsync();
 		}
 		swap_screens = !swap_screens;
 

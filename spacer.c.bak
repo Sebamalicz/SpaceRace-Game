@@ -72,15 +72,15 @@ int main()
 		{
 			clear_qk(base);
 			render(&model, base);
-			Vsync();
 			set_video_base(base);
+			Vsync();
 		}
 		else
 		{
 			clear_qk(base2);
 			render(&model, base2);
-			Vsync();
 			set_video_base(base2);
+			Vsync();
 		}
 		swap_screens = !swap_screens;
 

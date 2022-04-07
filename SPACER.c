@@ -3,7 +3,8 @@
 
 #include "includes/render.h"
 #include "includes/video.h"
-#include "music.h"
+#include "includes/music.h"
+#include "includes/psg.h"
 
 UINT32 get_time();
 const UINT8 second_buffer[32256]; /*Second Screen Buffer*/

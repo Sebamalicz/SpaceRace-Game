@@ -3,6 +3,7 @@
 
 #include "includes/render.h"
 #include "includes/video.h"
+#include "includes/music.h"
 
 UINT32 get_time();
 const UINT8 second_buffer[32256]; /*Second Screen Buffer*/
@@ -40,7 +41,7 @@ int main()
 	timeThen = 0;
 	timeNow = 0;
 
-	
+	start_music();
 	while(!quit && !gameOver)/*while q isn't pressed*/
 	{
 		/*Start Asynchronous*/
@@ -62,6 +63,7 @@ int main()
 		timeElapsed = timeNow - timeThen;
 		if(timeElapsed > 0)
 		{
+			update_music(timeElapsed);
 			move_asteroids(&model);
 		}
 		
@@ -89,6 +91,7 @@ int main()
 		swap_screens = !swap_screens;
 
 	}
+	stop_sound();
 	set_video_base(base);
 	Cnecin();
 	clear_qk(base);

@@ -38,8 +38,6 @@
 #define ENV_TRIANGLE_PERIOD_SHAPE  0xd
 #define ENV_TRIANGLE_INV_PERIOD_SHAPE 0x00
 
-#define reg_is_valid(reg) (reg >= 0 && reg <= 15)
-
 extern volatile char* psg_reg_select = 0xFF8800;
 extern volatile char* psg_reg_write  = 0xFF8802;
 

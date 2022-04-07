@@ -66,16 +66,11 @@ void set_volume(int channel, int volume)
 
 void enable_channel(int channel, int tone_on, int noise_on)
 {
-	bool tone_only;
-	bool noise_only;
-	bool tone_and_noise;
-	int existing_mixer_val;
+	bool tone_only = tone_on && !noise_on;
+	bool noise_only = !tone_on && noise_on;
+	bool tone_and_noise = tone_on && noise_on;
+	int existing_mixer_val = read_psg(MIXER_REG);
 	int channel_val;
-	
-	tone_only = tone_on && !noise_on;
-	noise_only = !tone_one && noise_on;
-	tone_and_noise = tone_on && noise_on;
-	existing_mixer_val = read_psg(MIXER_REG);
 
   switch(channel) {
     case ch_a:

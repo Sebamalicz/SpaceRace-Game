@@ -1,5 +1,9 @@
 #include "music.h"
 
+
+static int current_note = 0;
+
+
 const notes main_song[] = 
 {
 	{3c0, 0.3},
@@ -47,10 +51,28 @@ const notes main_song[] =
 
 void start_music()
 {
+	int sustain = 10;
+  	int vol = 11;
+
+  	set_envelope(triangle_inv_period, sustain);
+  	enable_channel(ch_c, true, false);
+  	set_volume(ch_c, vol);
 	
 }
 
 void update_music(UINT32 time_elapsed)
 {
-	
+	 bool updated = false;
+
+	  if (time_elapsed >= main_song[current_note].duration) {
+	    current_note++;
+	    updated = true;
+	  }
+
+	  if (current_note > (NOTES_SZ - 1))
+	    current_note = 0;
+
+	  set_tone(ch_c, main_song[current_note].freq);
+
+	  return updated;
 }

@@ -2,6 +2,8 @@
 #define SPACERACE_MUSIC_H
 #include "types.h"
 
+#define NOTES_SZ 168
+
 typedef struct notes{
     int freq;
     int duration;

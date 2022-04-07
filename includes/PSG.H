@@ -4,10 +4,6 @@
 #include <osbind.h>
 #include <stdio.h>
 
-typedef int bool;
-#define true 1
-#define false 0
-
 #define CH_A_TONE 0x0
 #define CH_B_TONE 0x2
 #define CH_C_TONE 0x4

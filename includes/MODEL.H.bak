@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "types.h"
+
 typedef struct Hitbox
 {
 	unsigned int top_left_x;

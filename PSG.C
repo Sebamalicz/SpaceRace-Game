@@ -66,18 +66,14 @@ void set_volume(int channel, int volume)
 
 void enable_channel(int channel, int tone_on, int noise_on)
 {
-	bool tone_only;
-	bool noise_only;
-	bool tone_and_noise;
-	int existing_mixer_val;
-/*	bool tone_only = tone_on && !noise_on;
+	bool tone_only = tone_on && !noise_on;
 	bool noise_only = !tone_on && noise_on;
 	bool tone_and_noise = tone_on && noise_on;
-	int existing_mixer_val = read_psg(MIXER_REG); */
+	int existing_mixer_val = read_psg(MIXER_REG); 
 	UINT8 channel_val;
 
 	switch(channel) {
-		case 1: /*How can this be ch_a if channel is an integer?*/
+		case 0: /*How can this be ch_a if channel is an integer?*/
 		
 		if (tone_only)
 			channel_val = existing_mixer_val != -1 ?
@@ -91,7 +87,7 @@ void enable_channel(int channel, int tone_on, int noise_on)
 						(MIXER_TONE_CH_A & MIXER_NOISE_CH_A);
 			break;
     
-		case 2: /*originally ch_b*/
+		case 1: /*originally ch_b*/
 		
 		if (tone_only)
 			channel_val = existing_mixer_val != -1 ?
@@ -105,7 +101,7 @@ void enable_channel(int channel, int tone_on, int noise_on)
 						(MIXER_TONE_CH_B & MIXER_NOISE_CH_B);
 			break;
     
-		case 3: /*originally ch_c*/
+		case 2: /*originally ch_c*/
 		
 		if (tone_only)
 			channel_val = existing_mixer_val != -1 ?
@@ -150,25 +146,25 @@ void set_envelope(int shape, unsigned int sustain)
   	write_psg(ENVELOPE_ROUGH_REG, sustain);
 
   	switch(shape) {
-    	case 1: /*How can this be saw if shape is int? originally saw*/
+    	case 0: /*How can this be saw if shape is int? originally saw*/
       		shape_val = ENV_SAW_SHAPE;
           	break;
-    	case 2: /*originally saw_inv*/
+    	case 1: /*originally saw_inv*/
       		shape_val = ENV_SAW_SHAPE_INV;
           	break;
-    	case 3: /*originally saw_period*/
+    	case 2: /*originally saw_period*/
       		shape_val = ENV_SAW_PERIOD_SHAPE;
 		break;
-    	case 4: /*originally triangle*/
+    	case 3: /*originally triangle*/
       		shape_val = ENV_TRIANGLE_SHAPE;
           	break;
-    	case 5: /*originally triangle_inv*/
+    	case 4: /*originally triangle_inv*/
       		shape_val = ENV_TRIANGLE_INV_SHAPE;
           	break;
-    	case 6: /*originally triangle_period*/
+    	case 5: /*originally triangle_period*/
       		shape_val = ENV_TRIANGLE_PERIOD_SHAPE;
           	break;
-    	case 7: /*originally triangle_inv_period*/
+    	case 6: /*originally triangle_inv_period*/
       		shape_val = ENV_TRIANGLE_INV_PERIOD_SHAPE;
          	 break;
   	}

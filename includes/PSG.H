@@ -43,44 +43,72 @@
 extern volatile char* psg_reg_select = 0xFF8800;
 extern volatile char* psg_reg_write  = 0xFF8802;
 
+/* 0 = channel A, 1  = channel B, 2 = channel C*/
+
 /*
 
+Purpose: Writes a byte value to the PSG registers.
+
 */
+
 void write_psg(int reg, UINT8 val);
 
 /*
 
+Purpose: Reads the value of a given PSG register.
+
 */
+
 int read_psg(int reg);
 
 /*
 
+Purpose: Load the tone registers for a given channel with
+the tune given.
+
 */
+
 void set_tone(int channel, int tuning);
 
 /*
 
+Purpose: Load the volume register for a given channel
+
 */
+
 void set_volume(int channel, int volume);
 
 /*
 
+Purpose: Sets a given channels noise/tone on or off.
+
 */
+
 void enable_channel(int channel, int tone_on, int noise_on);
 
 /*
 
+Purpose: Stops all sound by slicencing PSG.
+
 */
+
 void stop_sound();
 
 /*
 
+Purpose: Load noise register with given tune value.
+
 */
+
 void set_noise(int tuning);
 
 /*
 
+Purpose: Set PSG envelope with given envelope shape and
+sustain.
+
 */
+
 void set_envelope(int shape, unsigned int sustain);
 
 #endif

@@ -3,76 +3,130 @@
 
 static int current_note = 0;
 
-const notes main_song[] = 
+const notes main_song0[] = 
 {
-	{0x3c0, 21}, 
-	{0x11d, 35},
-	{0x0b4, 35},
-	{0x10d, 35},
-	{0x140, 35},
-	{0x0f0, 35},
-	{0x140, 35},
-	{0x0d6, 35},
-	{0x140, 35},
-	{0x0f0, 35},
-	{0x140, 35},
-	{0x0b4, 7},
-	{0x140, 7},
-	{0x168, 7},
-	{0x2cf, 7},
-	{0x23b, 7},
-	{0x1e0, 7},
-	{0x1ac, 7},
-	{0x08f, 35},
-	{0x140, 35},
-	{0x0d6, 35},
-	{0x140, 35},
-	{0x0b4, 35},
-	{0x0d6, 35},
-	{0x140, 35},
-	{0x1ac, 35},
-	{0x10d, 35},
-	{0x140, 35},
-	{0x1ac, 35},
-	{0x1fc, 35},
-	{0x281, 35},
-	{0x2cf, 35},
-	{0x59e, 7},
-	{0x140, 35},
-	{0x11d, 35},
-	{0x11d, 21},
-	{0x168, 21},
-	{0x1ac, 21},
-	{0x140, 35},
-	{0x281, 35},
-	{0x501, 35}
+	{1072, 21}, 
+	{319, 21}, 
+	{190, 35},
+	{253, 21}, 
+	{253, 21}, 
+	{239, 35}, 
+	{253, 35}, 
+	{190, 7}, 
+	{638, 7}, 
+	{506, 7}, 
+	{478, 7}, 
+	{160, 35}, 
+	{239, 35}, 
+	{190, 35}, 
+	{284, 35}, 
+	{568, 35}, 
+	{0, 35},
+	{0, 35},
+	{319, 21}, 
+	{319, 14},
+	{478, 14}, 
+	{716, 35}
+};
+const notes main_song1[] = 
+{
+	{0, 21},
+	{0, 21},
+	{284, 35}, 
+	{0, 21},
+	{0 , 21},
+	{0, 35},
+	{0, 35},
+	{379, 7},
+	{0 , 7},
+	{0 , 7},
+	{0 , 7},
+	{0, 35},
+	{0, 35},
+	{239, 35},
+	{478, 35},
+	{758, 35},
+	{0, 35},
+	{319, 35},
+	{0, 21},
+	{319, 14},
+	{0, 14},
+	{1432, 35}
+};
+
+const notes main_song2[] = 
+{
+	{0, 21},
+	{0, 21},
+	{358, 35}, 
+	{0, 21},
+	{358, 21}, 
+	{358, 35},
+	{358, 35},
+	{358, 7},
+	{0 , 7},
+	{0 , 7},
+	{0 , 7},
+	{358, 35},
+	{358, 35},
+	{358, 35},
+	{358, 35},
+	{716, 35},
+	{358, 35},
+	{0, 35},
+	{0, 21},
+	{0, 14},
+	{0, 14},
+	{358, 35}
 };
 
 void start_music()
 {
 	int sustain = 10;
-  	int vol = 11;
+  	int vol = 7;
 
-  	set_envelope(ENV_TRIANGLE_INV_PERIOD_SHAPE, sustain);
-  	enable_channel(2, true, false); /*ch_c*/
-  	set_volume(2, vol); /*ch_c*/
+    set_envelope(3, sustain);
+	
+	/*enable all registers with only tune*/
+  	enable_channel(2, true, false); 
+	enable_channel(1, true, false);
+	enable_channel(0, true, false);
+	
+	/*sets all register volumes to 7*/
+	set_volume(2, vol); 
+	set_volume(1, vol);
+	set_volume(0, vol);
 }
 
 bool update_music(UINT32 time_elapsed)
 {
-	 bool updated = false;
+	bool updated = false;
+	int vol = 7;
+	int off = 0;
+	if (time_elapsed >= main_song0[current_note].duration) {
+	   current_note++;
+	   updated = true;
+	}
 
-	  if (time_elapsed >= main_song[current_note].duration) {
-	    current_note++;
-	    updated = true;
-	  }
-
-	  if (current_note > (NOTES_SZ - 1))
-	  {
-	    current_note = 0;
-	  }
+	if (current_note > (NOTES_SZ - 1))
+	{
+	   current_note = 0;
+	}
 	  
-	  set_tone(2, main_song[current_note].freq); /*ch_c*/
+	/*turns off volume for registers*/
+	set_volume(2, off);
+	set_volume(1, off);
+	set_volume(0, off);
+	  
+	/*sets tone to next note*/
+	set_tone(2, main_song0[current_note].freq); 
+	set_tone(1, main_song1[current_note].freq); 
+	set_tone(0, main_song2[current_note].freq);
 
-	  return updated;
+	/*turns on volume for registers*/
+	set_volume(2, vol); 
+	set_volume(1, vol);
+	set_volume(0, vol);
+
+	return updated;
 }

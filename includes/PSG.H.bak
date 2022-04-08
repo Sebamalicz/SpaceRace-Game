@@ -4,10 +4,6 @@
 #include <osbind.h>
 #include <stdio.h>
 
-typedef int bool;
-#define true 1
-#define false 0
-
 #define CH_A_TONE 0x0
 #define CH_B_TONE 0x2
 #define CH_C_TONE 0x4
@@ -49,7 +45,7 @@ extern volatile char* psg_reg_write  = 0xFF8802;
 
 void write_psg(int reg, UINT8 val);
 
-UINT8 read_psg(int reg);
+int read_psg(int reg);
 
 void set_tone(int channel, int tuning);
 

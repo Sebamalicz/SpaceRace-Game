@@ -14,7 +14,6 @@ void processAsync();
 
 int main()
 {
-	
 	Model model;
 	UINT32 timeElapsed, timeThen, timeNow;
 	UINT16 *base, *base2;
@@ -23,6 +22,8 @@ int main()
 
 	base = get_video_base();
 	base2 = (UINT16 *) get_base(second_buffer);
+
+	stop_sound();
 
 	clear_qk(base); /*Clears screen to ready for initialization*/
 

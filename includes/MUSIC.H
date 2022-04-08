@@ -2,7 +2,7 @@
 #define SPACERACE_MUSIC_H
 #include "types.h"
 
-#define NOTES_SZ 40 /*origially 168*/
+#define NOTES_SZ 22 /*origially 168*/
 
 typedef struct notes
 {
@@ -10,8 +10,14 @@ typedef struct notes
     int duration;
 } notes;
 
+/*
+
+*/
 void start_music();
 
+/*
+
+*/
 bool update_music(UINT32 time_elapsed);
 
 #endif

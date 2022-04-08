@@ -1,12 +1,13 @@
-#include "includes/isr.h"
+#include "includes\isr.h"
+#include "includes\types.h"
 
 
 
 /*Global Variables*/
+bool RENDER_REQUEST = true;
 int GAME_TIMER = 0;
 int AST_MOVE_TIMER = 0;
 int KEY_REPEAT_TICKS = 0;
-bool RENDER_REQUEST = true;
 UINT8 ikbd_buffer[256];
 unsigned int buff_head = 0;
 unsigned int buff_tail = 0;
@@ -24,18 +25,6 @@ volatile UINT8* const ikbd_reader = 0xfffc02;
 volatile UINT8* const isrb_mfp = 0xfffa11;
 volatile UINT8* const ascii_table = 0xFFFE829C;
 
-/*Mouse variables*/
-int mouse_state = 0;
-int MOUSE_X = 0;
-int MOUSE_Y = 0;
-int PREV_MOUSE_X = 0;
-int PREV_MOUSE_Y = 0;
-UINT8 mouse_button;
-UINT8 mouse_delta_x;
-UINT8 mouse_delta_y;
-bool mouse_moved = false;
-bool MOUSE_LEFT_CLICK = false;
-
 
 void vbl_req()
 {
@@ -48,45 +37,26 @@ void vbl_req()
 
 void ikbd_req()
 {
-	SCANCODE scancode;
+	UINT8 scancode;
 
   	*ikbd_control = 0x16;
 	  /* check if data was recieved */
 	  if (*ikbd_status & 0x1) 
 	  {
 	    scancode = *ikbd_reader;
-	    if (mouse_state == MOUSE_STATE_FIRST_PACKET) 
-	    { /*check if scancode corresponds to mouse*/
-			if(scancode >= MOUSE_MOVE_CODE)
-			{
-				mouse_button = scancode;
-				mouse_state = MOUSE_STATE_DELTA_X;
-				mouse_moved = scancode == MOUSE_MOVE_CODE;
-			}
-		    else if ((scancode & 0x80) == 0x00) 
-		    { 
-			    /* check if it's a make code */
-			    write_to_ikbd_buffer(scancode);
-			    key_repeat = true;
-		    }
-		    else if ((scancode & 0x80) == 0x80) 
-		    { 
-			    /* check if it's a break code */
-			    key_repeat = false;
-		    }
-	      }
-		  else if(mouse_state == MOUSE_STATE_DELTA_X)
-		  {
-			  mouse_state = MOUSE_STATE_DELTA_Y;
-			  mouse_delta_x = scancode;
-		  }
-		  else if(mouse_state == MOUSE_STATE_DELTA_Y)
-		  {
-			  mouse_state = MOUSE_STATE_FIRST_PACKET;
-			  mouse_delta_y = scancode;
-		  }
-		
-	    *isrb_mfp_register &= MFB_BIT_6_MASK_OFF; /* clear bit 6 */
+		if ((scancode & 0x80) == 0x00) 
+		{ 
+			/* check if it's a make code */
+			write_to_ikbd_buffer(scancode);
+			key_repeat = true;
+		}
+		if ((scancode & 0x80) == 0x80) 
+		{ 
+			/* check if it's a break code */
+			key_repeat = false;
+		}
+
+	    *isrb_mfp &= MFB_BIT_6_MASK_OFF; /* clear bit 6 */
 	  }
 
 	  *ikbd_control = 0x96;
@@ -95,13 +65,14 @@ void ikbd_req()
 void inst_vectors()
 {
 	vbl_vector = inst_vector(VBL_ISR, vbl_isr);
-  	ikbd_vector = inst_vector(IKBD_ISR, ikbd_isr);
+  	/*ikbd_vector = install_vector(IKBD_ISR, ikbd_isr); */
 }
 
 void rem_vectors()
 {
 	inst_vector(VBL_ISR, vbl_vector);
-  	inst_vector(IKBD_ISR, ikbd_vector);
+  	/*install_vector(IKBD_ISR, ikbd_vector); */
+	
 }
 
 Vector inst_vector(int num, Vector vector)
@@ -129,7 +100,7 @@ bool ikbd_waiting()
 
 void write_to_ikbd_buffer(UINT8 scancode)
 {
-	if (buff_tail == IKBD_BUFF_SIZE - 1)
+	if (buff_tail == IKBD_BUFFER_SIZE - 1)
 	{
 		buff_tail = 0;
 	}
@@ -145,18 +116,18 @@ UINT32 read_ikbd()
 	unsigned long ch;
   	long old_ssp = Super(0);
 
-	  if (buff_head == IKBD_BUFF_SIZE - 1)
+	  if (buff_head == IKBD_BUFFER_SIZE - 1)
 	  {
 	    buff_head = 0;
 	  }
 
-	  *isrb_mfp_register &= MFB_BIT_6_MASK_OFF;
+	  *isrb_mfp &= MFB_BIT_6_MASK_OFF;
 
 	  ch = ikbd_buffer[buff_head];
 	  ch = ch << 16;
 	  ch = ch + *(ascii_table + ikbd_buffer[buff_head++]);
 
-	  *isrb_mfp_register |= MFB_BIT_6_MASK_ON; /* turn bit 6 back on */
+	  *isrb_mfp |= MFB_BIT_6_MASK_ON; /* turn bit 6 back on */
 
 	  Super(old_ssp);
 	  return ch;
@@ -164,12 +135,13 @@ UINT32 read_ikbd()
 
 void clear_ikbd()
 {
-	while(ikbd_waiting()) 
+	/*
+	while(ikbd_is_waiting()) 
 	{
 	    buff_head++;
 	}
 
-	ikbd_buffer[buff_tail] = 0x00;
+	ikbd_buffer[buff_tail] = 0x00;*/
 }
 
 UINT8 get_repeat_key()

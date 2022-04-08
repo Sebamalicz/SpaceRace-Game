@@ -2,7 +2,7 @@
 #define SPACERACE_MUSIC_H
 #include "types.h"
 
-#define NOTES_SZ 40 /*origially 168*/
+#define NOTES_SZ 168 /*origially 40*/
 
 typedef struct notes
 {

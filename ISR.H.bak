@@ -4,9 +4,6 @@
 /*includes*/
 #include "types.h"
 
-/*typedefs*/
-typedef UINT8 SCANCODE;
-
 /*Constants*/
 #define VBL_ISR 28
 #define IKBD_ISR 79

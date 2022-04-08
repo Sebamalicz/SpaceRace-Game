@@ -16,32 +16,15 @@ volatile UINT8* const ikbd_reader = 0xfffc02;
 volatile UINT8* const isrb_mfp = 0xfffa11;
 volatile UINT8* const ascii_table = 0xFFFE829C;
 
-/*ikbd buffer components*/
-UINT8 ikbd_buffer[IKBD_BUFFER_SIZE];
-UINT16 buffer_head = 0;
-UINT16 buffer_tail = 0;
-UINT8 repeated_key = 0;
 
 void vbl_req()
 {
-	MUSIC_TIMER++;
-	GAME_TIMER++;
-	RENDER_REQUEST = true;
+	
 }
 
 void ikbd_req()
 {
-	SCANCODE scancode;
-	*ikbd_control = 0x16;
 	
-	if(*ikbd_status & 0x1)
-	{
-		scancode = *ikbd_reader;
-		if((scancode * 0x80) == 0x00) 
-		{
-			write_to_ikbd_buffer(scancode);
-			key_repeat = true;
-		}
 }
 
 void inst_vectors()

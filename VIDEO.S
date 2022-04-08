@@ -2,8 +2,6 @@
 
 	xdef	_get_video_base
 	xdef	_set_video_base
-	xref 	svisor_on
-	xref	svisor_off
 
 ;-----------CONSTANTS---------------------------;
 

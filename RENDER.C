@@ -1975,3 +1975,9 @@ void render_splashScreen(UINT32 *base)
 	clear_qk(base);
 	plot_screen(base, array);
 }
+
+void disable_cursor()
+{
+	printf("\033f");
+	fflush(stdout);
+}

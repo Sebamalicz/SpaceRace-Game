@@ -15,6 +15,7 @@ Parameters:
 key - a char type variable that indicates the direction the ship will move
 
 */
+
 void spaceship_move(Model *model, char key);
 
 /*
@@ -27,6 +28,7 @@ Parameters:
 *ship - a pointer to a Spaceship struct
 
 */
+
 void ship_respawn(Spaceship *ship);
 
 /*
@@ -72,6 +74,7 @@ Parameters:
 *model - a poiter to the main model struct
 
 */
+
 void init_timebar(Model *model);
 
 /*
@@ -85,21 +88,24 @@ Parameters:
 *model - a poiter to the main model struct
 
 */
+
 void init_score(Model *model);
 
 /*
 
+Purpose: To check if user has clicked a key
+
 */
+
 bool has_user_input();
 
 /*
 
+Purose: To get the key pressed.
+
 */
+
 UINT32 get_user_input();
 
-/*
-
-*/
-bool has_mouse_input();
 
 #endif

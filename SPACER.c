@@ -4,6 +4,7 @@ const UINT8 second_buffer[32256]; /*Second Screen Buffer*/
 
 extern bool RENDER_REQUEST;
 extern int GAME_TIMER;
+extern bool key_repeat;
 
 bool gameOver = false;
 
@@ -12,9 +13,10 @@ int main()
 	
 	Model model;
 	UINT16 *base, *base2;
-	bool quit, swap_screens;
+	bool quit, swap_screens, start;
 	char direction;
 	UINT32 input;
+	start = false;
 	
 	inst_vectors();
 
@@ -22,9 +24,18 @@ int main()
 	base2 = (UINT16 *) get_base(second_buffer);
 
 	clear_qk(base); /*Clears screen to ready for initialization*/
-
+	
+	
+	disable_cursor();
 	render_splashScreen((UINT32 *)base);
-	Cconin();
+	/*while(!start)
+	{
+		if(has_user_input())
+		{
+			start = true;
+		}
+	}*/
+
 	ship_respawn(&model.user); /*Initializes all objects*/
 	init_asteroids(&model);
 	init_timebar(&model);
@@ -39,7 +50,7 @@ int main()
 	while(!quit && !gameOver)/*while q isn't pressed*/
 	{
 		/*Start Asynchronous*/
-		(has_user_input())
+		if(has_user_input())
 		{
 			input = get_user_input();
 			if(input == QKEY)
@@ -96,7 +107,7 @@ int main()
 	return 0;
 }
 
-UINT8 get_base(UINT8second_buffer)
+UINT8* get_base(UINT8* second_buffer)
 {
     UINT8* base;
     UINT16 difference;

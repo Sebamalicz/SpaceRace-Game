@@ -2,7 +2,7 @@
 #define SPACERACE_EVENTS_H
 #include "model.h"
 #include "types.h"
-
+#include "isr.h"
 /*
 
 Purpose: to move the spaceship up or down

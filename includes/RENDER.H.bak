@@ -18,6 +18,4 @@ void render_time(Time_bar *time, UINT8 *base);
 void render_scoreboard(Scorebox *score, UINT16 *base);
 
 void render_splashScreen(UINT32 *base);
-
-void disable_cursor();
 #endif

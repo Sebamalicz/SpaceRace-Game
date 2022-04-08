@@ -1672,7 +1672,7 @@ _render:
 	addq.l	#8,a7
 	;line	1855
 	move.l	d4,-(a7)
-	lea	742,a0
+	lea	744,a0
 	add.l	d3,a0
 	pea	(a0)
 	jsr	_render_scoreboard
@@ -2001,12 +2001,27 @@ _render_splashScreen:
 	jsr	_plot_screen
 	unlk	a6
 	rts
+L46:
+	dc.b	27,102,0
+	even
+_disable_cursor:
+	link	a6,#0
+	;line	1981
+	pea	L46
+	jsr	_printf
+	addq.l	#4,a7
+	;line	1982
+	pea	22+__iob
+	jsr	_fflush
+	unlk	a6
+	rts
 	globl	_render
 	globl	_render_spaceship
 	globl	_render_asteroids
 	globl	_render_time
 	globl	_render_scoreboard
 	globl	_render_splashScreen
+	globl	_disable_cursor
 	globl	_array
 	globl	_spaceship_bitmap
 	globl	_asteroid_bitmap

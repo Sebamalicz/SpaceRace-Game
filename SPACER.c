@@ -22,7 +22,7 @@ int main()
 	UINT32 timeElapsed, timeThen, timeNow;
 	UINT16 *base, *base2;
 	bool quit, swap_screens, gameOver;
-	char ch;
+	char direction;
 	
 	inst_vectors();
 
@@ -53,20 +53,21 @@ int main()
 		/*Start Asynchronous*/
 		if(Cconis()) /*Checks for user input*/
 		{
-			ch = (char)Cnecin();
+			direction = (char)Cnecin();
 			
-			if(ch == 'q')
+			if(direction == 'q')
 			{
 				quit = true; 
 			}
 			
-			spaceship_move(&model, ch);
+			/*spaceship_move(&model, ch); */
 		}
 		/*End Asynchronous*/
 		
 		/*Start Synchronous*/
 		timeNow = get_time();
 		timeElapsed = timeNow - timeThen;
+		spaceship_move(&model, direction);
 		if(timeElapsed > 0)
 		{
 			update_music(timeElapsed);

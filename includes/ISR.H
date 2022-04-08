@@ -4,11 +4,8 @@
 /*includes*/
 #include "types.h"
 #include "vbl.h"
-<<<<<<< HEAD
 #include <osbind.h>
-=======
 #include <osbind>
->>>>>>> b854b5d20393d5e3ac1228378958ef04ae0c1c8c
 
 /*typedefs*/
 typedef UINT8 SCANCODE;
@@ -34,52 +31,84 @@ typedef void (*Vector) ();
 
 /*
 
+Purpose: Update timer on VBL IRQ.
+
+Details: times any synchronous events such as page flipping for double
+buffered graphics and the playing of music.
+
 */
 void vbl_req();
 
 /*
 
+Purpose: Processes keyboard input on IKBD IRQ.
+
+Details: handles key scancodes and key repeats(checking for break code).
+
 */
+
 void ikbd_req();
 
 /*
 
+Purpose: Install vbl and ikbd vectors.
+
 */
+
 void inst_vectors();
 
 /*
 
+Purpose: Remove vbl and ikbd vectors.
+
 */
+
 void rem_vectors();
 
 /*
 
+Purpose: Install a single vector, used for vbl and ikbd and returns original vector.
+
 */
+
 Vector inst_vector(int num, Vector vector);
 
 /*
 
+Purpose: Checks if keybaord is waiting for input.
+
 */
+
 bool ikbd_waiting();
 
 /*
 
+Purpose: Takes key code and writes it to keyboard buffer.
+
 */
+
 void write_to_ikbd_buffer(UINT8 scancode);
 
 /*
 
+Purpose: Reads key code from keyboard buffer.
+
 */
+
 UINT32 read_ikbd();
 
 /*
 
+Purpose: Clears keyboard buffer.
+
 */
+
 void clear_ikbd();
 
 /*
 
 */
+
 UINT8 get_repeat_key();
 
 #endif

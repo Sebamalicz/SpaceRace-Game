@@ -4,6 +4,7 @@
 /*includes*/
 #include "types.h"
 #include "vbl.h"
+#include <osbind.h>
 
 /*typedefs*/
 typedef UINT8 SCANCODE;
@@ -17,6 +18,8 @@ typedef void (*Vector) ();
 #define IKBD_BUFF_SIZE 256
 #define IKBD_RX_DEF 0xfffc96
 #define IKBD_RX_INTER_OFF 0xfffc16
+#define MFB_BIT_6_MASK_ON 0x40
+#define MFB_BIT_6_MASK_OFF 0xbf
 /*MOUSE*/
 #define MOUSE_STATE_FIRST_PACKET 0
 #define MOUSE_STATE_DELTA_X 1

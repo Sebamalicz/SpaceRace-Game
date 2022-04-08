@@ -100,7 +100,7 @@ bool ikbd_waiting()
 
 void write_to_ikbd_buffer(UINT8 scancode)
 {
-	if (buff_tail == IKBD_BUFFER_SIZE - 1)
+	if (buff_tail == IKBD_BUFF_SIZE - 1)
 	{
 		buff_tail = 0;
 	}
@@ -116,7 +116,7 @@ UINT32 read_ikbd()
 	unsigned long ch;
   	long old_ssp = Super(0);
 
-	  if (buff_head == IKBD_BUFFER_SIZE - 1)
+	  if (buff_head == IKBD_BUFF_SIZE - 1)
 	  {
 	    buff_head = 0;
 	  }

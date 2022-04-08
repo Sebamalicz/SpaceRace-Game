@@ -28,13 +28,7 @@ Parameters:
 
 */
 void ship_respawn(Spaceship *ship);
-<<<<<<< HEAD
-=======
 
-
-void ship_respawn_2(Spaceship *ship);
-
->>>>>>> 615c68b3d2a4ec0f85a1157d523e95ea72b47bf7
 /*
 
 Purpose: to initialize the asteroids starting positions and speeds

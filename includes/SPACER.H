@@ -9,7 +9,6 @@
 #include "psg.h"
 #include "isr.h"
 
-void setup_game(Model* model, void *base);
 
 /*
 

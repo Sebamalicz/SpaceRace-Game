@@ -3,11 +3,11 @@
 
 void spaceship_move(Model *model, char key)
 {	
-	if (key == WKEY)
+	if (key == 'w')
 	{
 		move_ship(model, true);
 	}
-	else if(key == SKEY)
+	else if(key == 's')
 	{
 		move_ship(model, false);
 	}

@@ -5,13 +5,16 @@ const UINT8 second_buffer[32256]; /*Second Screen Buffer*/
 extern bool RENDER_REQUEST;
 extern int GAME_TIMER;
 
+bool gameOver = false;
+
 int main()
 {
 	
 	Model model;
 	UINT16 *base, *base2;
-	bool quit, swap_screens, gameOver;
+	bool quit, swap_screens;
 	char direction;
+	UINT32 input;
 	
 	inst_vectors();
 
@@ -31,30 +34,28 @@ int main()
 
 	quit = false; 
 	swap_screens = true;
-	gameOver = false;
 
 	start_music();
 	while(!quit && !gameOver)/*while q isn't pressed*/
 	{
 		/*Start Asynchronous*/
-		if(Cconis()) /*Checks for user input*/
+		(has_user_input())
 		{
-			direction = (char)Cnecin();
-			
-			if(direction == 'q')
+			input = get_user_input();
+			if(input == QKEY)
 			{
-				quit = true; 
+				gameOver = true;
 			}
-			
-			/*spaceship_move(&model, ch); */
-		}
+			if(key_repeat)
+			{
+				spaceship_move(&model, input);
+			}
+		}	
 		/*End Asynchronous*/
 		
 		/*Start Synchronous*/
-		spaceship_move(&model, direction);
 		if(GAME_TIMER > 0)
 		{
-			spaceship_move(&model, direction);
 			update_music(GAME_TIMER);
 			move_asteroids(&model);
 		}
@@ -93,24 +94,6 @@ int main()
 	rem_vectors();
 	
 	return 0;
-}
-
-void processSync(Model* model)
-{
-	
-}
-
-void processAsync(Model* model)
-{
-	if(Cconis()) /*Checks for user input*/
-	{
-		direction = (char)Cnecin();
-			
-		if(direction == 'q')
-		{
-			quit = true; 
-		}
-	}
 }
 
 void setup_game(Model* model, void* base)

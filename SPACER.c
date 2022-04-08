@@ -54,10 +54,8 @@ int main()
 		/*End Asynchronous*/
 		
 		/*Start Synchronous*/
-		spaceship_move(&model, direction);
 		if(GAME_TIMER > 0)
 		{
-			spaceship_move(&model, direction);
 			update_music(GAME_TIMER);
 			move_asteroids(&model);
 		}
@@ -96,11 +94,6 @@ int main()
 	rem_vectors();
 	
 	return 0;
-}
-
-void setup_game(Model* model, void* base)
-{
-	
 }
 
 UINT8 get_base(UINT8second_buffer)

@@ -4,7 +4,11 @@
 /*includes*/
 #include "types.h"
 #include "vbl.h"
+<<<<<<< HEAD
 #include <osbind.h>
+=======
+#include <osbind>
+>>>>>>> b854b5d20393d5e3ac1228378958ef04ae0c1c8c
 
 /*typedefs*/
 typedef UINT8 SCANCODE;

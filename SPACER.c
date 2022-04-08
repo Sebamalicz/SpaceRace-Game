@@ -22,7 +22,7 @@ int main()
 	Model model;
 	UINT16 *base, *base2;
 	bool quit, swap_screens, gameOver;
-	char ch;
+	char direction;
 	
 	inst_vectors();
 
@@ -50,19 +50,26 @@ int main()
 		/*Start Asynchronous*/
 		if(Cconis()) /*Checks for user input*/
 		{
-			ch = (char)Cnecin();
+			direction = (char)Cnecin();
 			
-			if(ch == 'q')
+			if(direction == 'q')
 			{
 				quit = true; 
 			}
 			
-			spaceship_move(&model, ch);
+			/*spaceship_move(&model, ch); */
 		}
 		/*End Asynchronous*/
 		
 		/*Start Synchronous*/
+<<<<<<< HEAD
 		if(GAME_TIMER > 0)
+=======
+		timeNow = get_time();
+		timeElapsed = timeNow - timeThen;
+		spaceship_move(&model, direction);
+		if(timeElapsed > 0)
+>>>>>>> b854b5d20393d5e3ac1228378958ef04ae0c1c8c
 		{
 			update_music(GAME_TIMER);
 			move_asteroids(&model);

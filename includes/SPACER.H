@@ -11,15 +11,6 @@
 
 /*
 
-Purpose: Set up game by clearing screen and initializing model and
-rendering the initial state.
-
-*/
-
-void setup_game(Model* model, void *base);
-
-/*
-
 Purpose: Get 256 byte aligned memory
 
 */

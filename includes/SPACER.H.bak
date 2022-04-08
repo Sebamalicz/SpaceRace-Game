@@ -9,9 +9,6 @@
 #include "psg.h"
 #include "isr.h"
 
-<<<<<<< HEAD
-=======
-
 /*
 
 Purpose: Set up game by clearing screen and initializing model and
@@ -20,7 +17,6 @@ rendering the initial state.
 */
 
 void setup_game(Model* model, void *base);
->>>>>>> fa9f9541007c0b1f6bf7a37f8447583e620fc44c
 
 /*
 

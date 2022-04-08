@@ -33,7 +33,7 @@ int PREV_MOUSE_Y = 0;
 UINT8 mouse_button;
 UINT8 mouse_delta_x;
 UINT8 mouse_delta_y;
-bool mouse_move = false;
+bool mouse_moved = false;
 bool MOUSE_LEFT_CLICK = false;
 
 
@@ -94,15 +94,14 @@ void ikbd_req()
 
 void inst_vectors()
 {
-	vbl_vector = install_vector(VBL_ISR, vbl_isr);
-  	ikbd_vector = install_vector(IKBD_ISR, ikbd_isr);
+	vbl_vector = inst_vector(VBL_ISR, vbl_isr);
+  	ikbd_vector = inst_vector(IKBD_ISR, ikbd_isr);
 }
 
 void rem_vectors()
 {
-	install_vector(VBL_ISR, vbl_vector);
-  	install_vector(IKBD_ISR, ikbd_vector);
-	
+	inst_vector(VBL_ISR, vbl_vector);
+  	inst_vector(IKBD_ISR, ikbd_vector);
 }
 
 Vector inst_vector(int num, Vector vector)
@@ -130,7 +129,7 @@ bool ikbd_waiting()
 
 void write_to_ikbd_buffer(UINT8 scancode)
 {
-	if (buff_tail == IKBD_BUFFER_SIZE - 1)
+	if (buff_tail == IKBD_BUFF_SIZE - 1)
 	{
 		buff_tail = 0;
 	}
@@ -146,7 +145,7 @@ UINT32 read_ikbd()
 	unsigned long ch;
   	long old_ssp = Super(0);
 
-	  if (buff_head == IKBD_BUFFER_SIZE - 1)
+	  if (buff_head == IKBD_BUFF_SIZE - 1)
 	  {
 	    buff_head = 0;
 	  }
@@ -165,7 +164,7 @@ UINT32 read_ikbd()
 
 void clear_ikbd()
 {
-	while(ikbd_is_waiting()) 
+	while(ikbd_waiting()) 
 	{
 	    buff_head++;
 	}

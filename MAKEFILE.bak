@@ -1,6 +1,6 @@
 
-spacer: spacer.o render.o raster.o events.o model.o psg.o music.o clear_qk.o svisor.o video.o vbl.o isr.o
-	cc68x -g spacer.o render.o raster.o events.o model.o psg.o music.o clear_qk.o svisor.o video.o vbl.o isr.o -o run_game
+spacer: spacer.o render.o raster.o events.o model.o psg.o music.o clear_qk.o svisor.o video.o
+	cc68x -g spacer.o render.o raster.o events.o model.o psg.o music.o clear_qk.o svisor.o video.o -o run_game
 
 spacer.o: spacer.c
 	cc68x -g -c spacer.c

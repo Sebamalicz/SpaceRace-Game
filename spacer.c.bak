@@ -5,8 +5,6 @@
 #include "includes/video.h"
 #include "includes/music.h"
 #include "includes/psg.h"
-#include "includes/vbl.h"
-#include "includes/isr.h"
 
 UINT32 get_time();
 const UINT8 second_buffer[32256]; /*Second Screen Buffer*/

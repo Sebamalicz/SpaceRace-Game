@@ -24,18 +24,6 @@ volatile UINT8* const ikbd_reader = 0xfffc02;
 volatile UINT8* const isrb_mfp = 0xfffa11;
 volatile UINT8* const ascii_table = 0xFFFE829C;
 
-/*Mouse variables*/
-int mouse_state = 0;
-int MOUSE_X = 0;
-int MOUSE_Y = 0;
-int PREV_MOUSE_X = 0;
-int PREV_MOUSE_Y = 0;
-UINT8 mouse_button;
-UINT8 mouse_delta_x;
-UINT8 mouse_delta_y;
-bool mouse_move = false;
-bool MOUSE_LEFT_CLICK = false;
-
 
 void vbl_req()
 {
@@ -48,7 +36,7 @@ void vbl_req()
 
 void ikbd_req()
 {
-	SCANCODE scancode;
+	uint8 scancode;
 
   	*ikbd_control = 0x16;
 	  /* check if data was recieved */
@@ -56,36 +44,21 @@ void ikbd_req()
 	  {
 	    scancode = *ikbd_reader;
 	    if (mouse_state == MOUSE_STATE_FIRST_PACKET) 
-	    { /*check if scancode corresponds to mouse*/
-			if(scancode >= MOUSE_MOVE_CODE)
-			{
-				mouse_button = scancode;
-				mouse_state = MOUSE_STATE_DELTA_X;
-				mouse_moved = scancode == MOUSE_MOVE_CODE;
-			}
-		    else if ((scancode & 0x80) == 0x00) 
+	    {
+	      
+		    if ((scancode & 0x80) == 0x00) 
 		    { 
 			    /* check if it's a make code */
 			    write_to_ikbd_buffer(scancode);
 			    key_repeat = true;
 		    }
-		    else if ((scancode & 0x80) == 0x80) 
+		    if ((scancode & 0x80) == 0x80) 
 		    { 
 			    /* check if it's a break code */
 			    key_repeat = false;
 		    }
 	      }
-		  else if(mouse_state == MOUSE_STATE_DELTA_X)
-		  {
-			  mouse_state = MOUSE_STATE_DELTA_Y;
-			  mouse_delta_x = scancode;
-		  }
-		  else if(mouse_state == MOUSE_STATE_DELTA_Y)
-		  {
-			  mouse_state = MOUSE_STATE_FIRST_PACKET;
-			  mouse_delta_y = scancode;
-		  }
-		
+
 	    *isrb_mfp_register &= MFB_BIT_6_MASK_OFF; /* clear bit 6 */
 	  }
 

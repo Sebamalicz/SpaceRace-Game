@@ -100,6 +100,8 @@ void clear_ikbd();
 
 /*
 
+Purpose: To get the number of key repeats.
+
 */
 
 UINT8 get_repeat_key();

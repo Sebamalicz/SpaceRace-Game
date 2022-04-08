@@ -36,6 +36,7 @@ typedef struct Spaceship
 	int x;
 	int y;
 	int speed;
+	int direction; /*1 north(up), 0 south(down)*/
 	Hitbox hitbox;
 	
 }Spaceship;
@@ -65,8 +66,6 @@ Details: The function will loop through an array which holds all
 asteroids on screen and moves them left or right depending on their
 screen position
 
-Status: Not yet tested
-
 */
 
 void move_asteroids(Model *model);
@@ -77,8 +76,6 @@ Purpose: To decrement time bar every second
 
 Details: The function will remove pixels of the time bar starting from the 
 top by adding the value of 'speed' to the 'y' value of the time bar struct 
-
-Status: Not yet tested
 */
 
 bool count_down(Time_bar *time);
@@ -91,8 +88,6 @@ Details: The function will change the direction of the ship depending on the
 value of 'up' if 'up' is true the ships 'y' value will decrease by the value
 of the ships 'speed' if 'up' is false the ships 'y' will increase by the value
 of the ships 'speed'
-
-Status: Not yet tested  
 */
 void move_ship(Model *model, bool up);
 
@@ -101,12 +96,9 @@ Purpose: To reset the ship back to its original position
 
 Details: This function will set the 'x' and 'y' values of the ship back to
 the starting position
-
-Status: Not yet tested 
 */
 
 void respawn(Spaceship *ship);
-void respawn_2(Spaceship *ship);
 
 /*
 Purpose: To spawn all asteroids on screen 
@@ -116,8 +108,6 @@ are allowed to be a maximum of 2 asteroids on the same x axis as well the
 function will randomize and set each asteroids 'speed' field, speeds vary
 from 2-4 pixels(discrete integers). Asteroids can not spawn any lower than
 the time bar(y = ??).
-
-Status: Not yet tested 
 */
 
 void spawn_asteroids(Asteroid *asteroids);
@@ -194,9 +184,15 @@ box2 - hitbox for object 2
 */
 bool collides(Hitbox box1, Hitbox box2);
 
+/*
+This Function restarts the timebar back to the initial 60 second time limit
+*/
 void restart_timebar(Time_bar *time);
 
+/*
+This function restarts the score back to the initial 00 score
+*/
 void restart_score(Scorebox *score);
-void restart_score_2(Scorebox *score);
+
 #endif
 

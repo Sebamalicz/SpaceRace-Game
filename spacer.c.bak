@@ -12,6 +12,7 @@ const UINT8 second_buffer[32256]; /*Second Screen Buffer*/
 extern bool RENDER_REQUEST;
 extern int GAME_TIMER;
 
+UINT8 *get_base(UINT8 *second_buffer);
 void processSync();
 void processAsync();
 

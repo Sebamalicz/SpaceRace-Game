@@ -113,3 +113,14 @@ void processAsync()
 {
 	
 }
+
+UINT8 get_base(UINT8second_buffer)
+{
+    UINT8* base;
+    UINT16 difference;
+    base = second_buffer;
+    difference = (int) base;
+    difference %= 0x100;
+    difference = 0x100 - difference;
+    return base + difference;
+}

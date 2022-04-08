@@ -15,7 +15,7 @@ void move_asteroids (Model *model)
 			{
 				asteroids_array[i].x = 0;
 				asteroids_array[i].left = true;
-				random = bounded_random(2, 4);/*2 , 4*/
+				random = bounded_random(2, 4);
 				asteroids_array[i].speed = random;
 				
 			}
@@ -51,7 +51,6 @@ void move_asteroids (Model *model)
 		}
 		
 	}
-	/* figure out collision detection */
 	
 }
 
@@ -62,22 +61,9 @@ void respawn (Spaceship *ship)
 	ship->x = 288;
 	ship->y = 384;
 	
-	ship->speed = 3;/*3*/
-
-	
-	ship->hitbox.top_left_x = ship->x;
-	ship->hitbox.top_left_y = ship->y;
-	ship->hitbox.bottom_right_x = ship->x + 16;
-	ship->hitbox.bottom_right_y = ship->y + 16;
-	ship->hitbox.hit = false;
-}
-
-void respawn_2 (Spaceship *ship)
-{
-	ship->x = 420;
-	ship->y = 384;
-	
 	ship->speed = 3;
+	ship->direction = 1;
+
 	
 	ship->hitbox.top_left_x = ship->x;
 	ship->hitbox.top_left_y = ship->y;
@@ -85,6 +71,7 @@ void respawn_2 (Spaceship *ship)
 	ship->hitbox.bottom_right_y = ship->y + 16;
 	ship->hitbox.hit = false;
 }
+
 bool count_down (Time_bar *time)
 {
 	bool timeOver = false;
@@ -122,7 +109,6 @@ void move_ship (Model *model, bool up)
 	}
 	model->user.hitbox.top_left_y = model->user.y;
 	model->user.hitbox.bottom_right_y = model->user.y + 16;
-	/* figure out collision detection */
 	return;
 }
 
@@ -263,14 +249,6 @@ void restart_score(Scorebox *score)
 {
 	score->x1 = 234;
 	score->x2 = 256;
-	score->y = 374;
-	score->score = 0;
-}
-
-void restart_score_2(Scorebox *score)
-{
-	score->x1 = 480;
-	score->x2 = 502;
 	score->y = 374;
 	score->score = 0;
 }

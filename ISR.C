@@ -135,13 +135,13 @@ UINT32 read_ikbd()
 
 void clear_ikbd()
 {
-	/*
-	while(ikbd_is_waiting()) 
+	
+	while(ikbd_waiting()) 
 	{
 	    buff_head++;
 	}
 
-	ikbd_buffer[buff_tail] = 0x00;*/
+	ikbd_buffer[buff_tail] = 0x00;
 }
 
 UINT8 get_repeat_key()

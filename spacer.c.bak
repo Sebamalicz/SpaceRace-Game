@@ -95,12 +95,25 @@ int main()
 	return 0;
 }
 
-void processSync()
+void processSync(Model* model)
 {
 	
 }
 
-void processAsync()
+void processAsync(Model* model)
+{
+	if(Cconis()) /*Checks for user input*/
+	{
+		direction = (char)Cnecin();
+			
+		if(direction == 'q')
+		{
+			quit = true; 
+		}
+	}
+}
+
+void setup_game(Model* model, void* base)
 {
 	
 }

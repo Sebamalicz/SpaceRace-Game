@@ -21,12 +21,6 @@ typedef void (*Vector) ();
 #define IKBD_RX_INTER_OFF 0xfffc16
 #define MFB_BIT_6_MASK_ON 0x40
 #define MFB_BIT_6_MASK_OFF 0xbf
-/*MOUSE*/
-#define MOUSE_STATE_FIRST_PACKET 0
-#define MOUSE_STATE_DELTA_X 1
-#define MOUSE_STATE_DELTA_Y 2
-#define MOUSE_MOVE_CODE 0xf8
-#define MOUSE_LEFT_BUTTON_CODE 0xfa
 
 
 /*
@@ -111,20 +105,6 @@ void clear_ikbd();
 
 UINT8 get_repeat_key();
 
-/*
-
-*/
-void init_mouse(UINT16* base);
-
-/*
-
-*/
-void upd_mouse(UINT16* base);
-
-/*
-
-*/
-bool ikbd_mouse_move();
 
 
 #endif

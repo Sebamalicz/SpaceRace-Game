@@ -9,6 +9,19 @@
 #include "psg.h"
 #include "isr.h"
 
+/*
+
+*/
+void processSync();
+
+/*
+
+*/
+void processAsync();
+
+/*
+
+*/
 void setup_game(Model* model, void *base);
 
 /*

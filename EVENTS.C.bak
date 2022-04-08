@@ -18,6 +18,11 @@ void ship_respawn(Spaceship *ship)
 	respawn(ship);
 }
 
+void ship_respawn_2(Spaceship *ship)
+{
+	respawn_2(ship);
+}
+
 void init_asteroids(Model *model)
 {
 	spawn_asteroids(model->asteroids);
@@ -38,17 +43,7 @@ void init_score(Model *model)
 	restart_score(&model->score);
 }
 
-bool has_user_input()
+void init_score_2(Model *model)
 {
-	return ikbd_waiting();
-}
-
-UINT32 get_user_input()
-{
-	return read_ikbd();
-}
-
-bool has_mouse_input()
-{
-	return ikdb_mouse_moved();
-}
+	restart_score_2(&model->score);
+}	

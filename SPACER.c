@@ -1,20 +1,9 @@
-#include <osbind.h>
-#include <stdio.h>
-
-#include "includes/render.h"
-#include "includes/video.h"
-#include "includes/music.h"
-#include "includes/psg.h"
-#include "includes/isr.h"
+#include "includes/spacer.h"
 
 const UINT8 second_buffer[32256]; /*Second Screen Buffer*/
 
 extern bool RENDER_REQUEST;
 extern int GAME_TIMER;
-
-UINT8 *get_base(UINT8 *second_buffer);
-void processSync();
-void processAsync();
 
 int main()
 {
@@ -62,15 +51,10 @@ int main()
 		/*End Asynchronous*/
 		
 		/*Start Synchronous*/
-<<<<<<< HEAD
-		if(GAME_TIMER > 0)
-=======
-		timeNow = get_time();
-		timeElapsed = timeNow - timeThen;
 		spaceship_move(&model, direction);
-		if(timeElapsed > 0)
->>>>>>> b854b5d20393d5e3ac1228378958ef04ae0c1c8c
+		if(GAME_TIMER > 0)
 		{
+			spaceship_move(&model, direction);
 			update_music(GAME_TIMER);
 			move_asteroids(&model);
 		}
@@ -111,12 +95,25 @@ int main()
 	return 0;
 }
 
-void processSync()
+void processSync(Model* model)
 {
 	
 }
 
-void processAsync()
+void processAsync(Model* model)
+{
+	if(Cconis()) /*Checks for user input*/
+	{
+		direction = (char)Cnecin();
+			
+		if(direction == 'q')
+		{
+			quit = true; 
+		}
+	}
+}
+
+void setup_game(Model* model, void* base)
 {
 	
 }

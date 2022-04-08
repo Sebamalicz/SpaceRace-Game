@@ -4,8 +4,11 @@
 /*includes*/
 #include "types.h"
 #include "vbl.h"
+<<<<<<< HEAD
 #include <osbind.h>
+=======
 #include <osbind>
+>>>>>>> b854b5d20393d5e3ac1228378958ef04ae0c1c8c
 
 /*typedefs*/
 typedef UINT8 SCANCODE;
@@ -78,21 +81,5 @@ void clear_ikbd();
 
 */
 UINT8 get_repeat_key();
-
-/*
-
-*/
-void init_mouse(UINT16* base);
-
-/*
-
-*/
-void upd_mouse(UINT16* base);
-
-/*
-
-*/
-bool ikbd_mouse_move();
-
 
 #endif

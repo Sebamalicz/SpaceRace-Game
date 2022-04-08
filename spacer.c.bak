@@ -1,20 +1,9 @@
-#include <osbind.h>
-#include <stdio.h>
-
-#include "includes/render.h"
-#include "includes/video.h"
-#include "includes/music.h"
-#include "includes/psg.h"
-#include "includes/isr.h"
+#include "includes/spacer.h"
 
 const UINT8 second_buffer[32256]; /*Second Screen Buffer*/
 
 extern bool RENDER_REQUEST;
 extern int GAME_TIMER;
-
-UINT8 *get_base(UINT8 *second_buffer);
-void processSync();
-void processAsync();
 
 int main()
 {
@@ -22,7 +11,7 @@ int main()
 	Model model;
 	UINT16 *base, *base2;
 	bool quit, swap_screens, gameOver;
-	char ch;
+	char direction;
 	
 	inst_vectors();
 
@@ -50,20 +39,22 @@ int main()
 		/*Start Asynchronous*/
 		if(Cconis()) /*Checks for user input*/
 		{
-			ch = (char)Cnecin();
+			direction = (char)Cnecin();
 			
-			if(ch == 'q')
+			if(direction == 'q')
 			{
 				quit = true; 
 			}
 			
-			spaceship_move(&model, ch);
+			/*spaceship_move(&model, ch); */
 		}
 		/*End Asynchronous*/
 		
 		/*Start Synchronous*/
+		spaceship_move(&model, direction);
 		if(GAME_TIMER > 0)
 		{
+			spaceship_move(&model, direction);
 			update_music(GAME_TIMER);
 			move_asteroids(&model);
 		}
@@ -112,4 +103,15 @@ void processSync()
 void processAsync()
 {
 	
+}
+
+UINT8 get_base(UINT8second_buffer)
+{
+    UINT8* base;
+    UINT16 difference;
+    base = second_buffer;
+    difference = (int) base;
+    difference %= 0x100;
+    difference = 0x100 - difference;
+    return base + difference;
 }

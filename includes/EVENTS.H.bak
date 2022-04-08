@@ -24,6 +24,7 @@ Status:
 Parameters:
 */
 void ship_respawn(Spaceship *ship);
+void ship_respawn_2(Spaceship *ship);
 /*
 Purpose: 
 
@@ -67,20 +68,5 @@ Status:
 Parameters:
 */
 void init_score(Model *model);
-
-/*
-
-*/
-bool has_user_input();
-
-/*
-
-*/
-UINT32 get_user_input();
-
-/*
-
-*/
-bool has_mouse_input();
-
+void init_score_2(Model *model);
 #endif

@@ -100,6 +100,5 @@ UINT32 get_user_input();
 /*
 
 */
-bool has_mouse_input();
 
 #endif

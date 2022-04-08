@@ -47,8 +47,3 @@ UINT32 get_user_input()
 {
 	return read_ikbd();
 }
-
-bool has_mouse_input()
-{
-	return ikdb_mouse_moved();
-}

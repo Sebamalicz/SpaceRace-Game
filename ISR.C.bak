@@ -5,6 +5,7 @@
 
 /*Global Variables*/
 bool RENDER_REQUEST = true;
+bool MOUSE_REQUEST = false;
 int GAME_TIMER = 0;
 int AST_MOVE_TIMER = 0;
 int KEY_REPEAT_TICKS = 0;
@@ -25,6 +26,17 @@ volatile UINT8* const ikbd_reader = 0xfffc02;
 volatile UINT8* const isrb_mfp = 0xfffa11;
 volatile UINT8* const ascii_table = 0xFFFE829C;
 
+/*Mouse*/
+int mouse_state = 0;
+int MOUSE_X = 0;
+int MOUSE_Y = 0;
+int PRE_MOUSE_X = 0;
+int PRE_MOUSE_Y = 0;
+UINT8 mouse_button;
+UINT8 mouse_del_x;
+UINT8 mouse_del_y;
+bool mouse_moved = false;
+bool MOUSE_LEFT_CLICK = false;
 
 void vbl_req()
 {
@@ -148,3 +160,22 @@ UINT8 get_repeat_key()
 {
 	return repeated_key;
 }
+
+void init_mouse(UINT16* base)
+{
+	MOUSE_X = 320; /*Center of screen*/
+	MOUSE_Y = 200;
+	PRE_MOUSE_X = MOUSE_X;
+	PRE_MOUSE_Y = MOUSE_Y;
+	
+}
+
+/*
+
+*/
+void upd_mouse(UINT16* base);
+
+/*
+
+*/
+bool ikbd_mouse_move();

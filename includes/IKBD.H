@@ -2,7 +2,7 @@
 #define SPACERACE_IKBD_H
 
 /*
-
+generates keyboard interupt
 */
 void ikbd_isr();
 

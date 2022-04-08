@@ -5,27 +5,29 @@
 #include "includes/video.h"
 #include "includes/music.h"
 #include "includes/psg.h"
-#include "includes/vbl.h"
-#include "includes/isr.h"
+
+const UINT8 second_buffer[32256]; /*Second Screen Buffer*/
+
+extern bool RENDER_REQUEST;
 
 UINT32 get_time();
-const UINT8 second_buffer[32256]; /*Second Screen Buffer*/
 UINT8 *get_base(UINT8 *second_buffer);
 void processSync();
 void processAsync();
 
 int main()
 {
+	
 	Model model;
 	UINT32 timeElapsed, timeThen, timeNow;
 	UINT16 *base, *base2;
 	bool quit, swap_screens, gameOver;
 	char ch;
+	
+	inst_vectors();
 
 	base = get_video_base();
 	base2 = (UINT16 *) get_base(second_buffer);
-
-	stop_sound();
 
 	clear_qk(base); /*Clears screen to ready for initialization*/
 
@@ -78,22 +80,25 @@ int main()
 		}
 		/*End Synchronous*/
 		
-		if(swap_screens)
+		if(RENDER_REQUEST)
 		{
-			clear_qk(base);
-			render(&model, base);
-			set_video_base(base);
-			/*Vsync();*/
-			vbl_req();
+			if(swap_screens)
+			{
+				clear_qk(base);
+				render(&model, base);
+				set_video_base(base);
+				/*Vsync();*/
+			}
+			else
+			{
+				clear_qk(base2);
+				render(&model, base2);
+				set_video_base(base2);
+				/*Vsync();*/
+			}
 		}
-		else
-		{
-			clear_qk(base2);
-			render(&model, base2);
-			set_video_base(base2);
-			/*Vsync();*/
-			vbl_req();
-		}
+		
+		RENDER_REQUEST = false;
 		swap_screens = !swap_screens;
 
 	}
@@ -102,6 +107,8 @@ int main()
 	Cnecin();
 	clear_qk(base);
 
+	rem_vectors();
+	
 	return 0;
 }
 

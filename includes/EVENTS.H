@@ -16,7 +16,7 @@ key - a char type variable that indicates the direction the ship will move
 
 */
 
-void spaceship_move(Model *model, char key);
+void spaceship_move(Model *model, UINT32 key);
 
 /*
 

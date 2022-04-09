@@ -15,7 +15,7 @@ typedef void (*Vector) ();
 /*VBL*/
 #define VBL_ISR 28
 /*IKBD*/
-#define IKBD_ISR 79
+#define IKBD_ISR 70
 #define IKBD_BUFF_SIZE 256
 #define IKBD_RX_DEF 0xfffc96
 #define IKBD_RX_INTER_OFF 0xfffc16

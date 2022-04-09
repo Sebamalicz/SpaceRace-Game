@@ -82,10 +82,12 @@ const notes main_song2[] =
 
 void start_music()
 {
-	int sustain = 10;
+	int sustain = 3;
   	int vol = 7;
 
-    set_envelope(3, sustain);
+	stop_sound();
+
+    set_envelope(2, sustain);
 	
 	/*enable all registers with only tune*/
   	enable_channel(2, true, false); 

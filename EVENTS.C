@@ -1,7 +1,7 @@
 #include "includes/events.h"
 
 
-void spaceship_move(Model *model, char key)
+void spaceship_move(Model *model, UINT32 key)
 {	
 	if (key == WKEY)
 	{

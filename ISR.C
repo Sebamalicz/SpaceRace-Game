@@ -50,7 +50,7 @@ void ikbd_req()
 			write_to_ikbd_buffer(scancode);
 			key_repeat = true;
 		}
-		if ((scancode & 0x80) == 0x80) 
+		else if ((scancode & 0x80) == 0x80) 
 		{ 
 			/* check if it's a break code */
 			key_repeat = false;

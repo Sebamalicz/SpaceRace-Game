@@ -103,7 +103,7 @@ int main()
 	Cnecin();
 	clear_qk(base);
 	rem_vectors();
-	
+	clear_ikbd();
 	return 0;
 }
 

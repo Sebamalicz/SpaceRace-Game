@@ -1,4 +1,4 @@
-  xdef	_ikdb_isr
+	xdef	_ikbd_isr
 	xref	_ikbd_req
 
 _ikbd_isr:

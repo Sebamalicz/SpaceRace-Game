@@ -4,6 +4,7 @@
 /*includes*/
 #include "types.h"
 #include "vbl.h"
+#include "ikbd.h"
 #include <osbind.h>
 
 /*typedefs*/

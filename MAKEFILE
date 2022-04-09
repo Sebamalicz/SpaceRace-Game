@@ -1,6 +1,6 @@
 
-spacer: spacer.o render.o raster.o events.o model.o psg.o music.o clear_qk.o svisor.o video.o vbl.o isr.o
-	cc68x -g spacer.o render.o raster.o events.o model.o psg.o music.o clear_qk.o svisor.o video.o vbl.o isr.o -o run_game
+spacer: spacer.o render.o raster.o events.o model.o psg.o music.o clear_qk.o svisor.o video.o vbl.o isr.o ikbd.o
+	cc68x -g spacer.o render.o raster.o events.o model.o psg.o music.o clear_qk.o svisor.o video.o vbl.o isr.o ikbd.o -o run_game
 
 spacer.o: spacer.c
 	cc68x -g -c spacer.c
@@ -38,6 +38,8 @@ svisor.o: svisor.s
 vbl.o: vbl.s includes\vbl.h
 	gen -D -L2 vbl.s -ovbl.o
 
+ikbd.o: ikbd.s includes\ikbd.h
+	gen -D -L2 ikbd.s -oikbd.o
 
 
 tst_rast: tst_rast.o raster.o

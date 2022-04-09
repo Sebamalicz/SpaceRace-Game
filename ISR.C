@@ -65,13 +65,13 @@ void ikbd_req()
 void inst_vectors()
 {
 	vbl_vector = inst_vector(VBL_ISR, vbl_isr);
-  	/*ikbd_vector = install_vector(IKBD_ISR, ikbd_isr); */
+  	ikbd_vector = inst_vector(IKBD_ISR, ikbd_isr);
 }
 
 void rem_vectors()
 {
 	inst_vector(VBL_ISR, vbl_vector);
-  	/*install_vector(IKBD_ISR, ikbd_vector); */
+  	inst_vector(IKBD_ISR, ikbd_vector); 
 	
 }
 

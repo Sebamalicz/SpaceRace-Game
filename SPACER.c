@@ -28,13 +28,13 @@ int main()
 	
 	disable_cursor();
 	render_splashScreen((UINT32 *)base);
-	/*while(!start)
+	while(!start)
 	{
 		if(has_user_input())
 		{
 			start = true;
 		}
-	}*/
+	}
 
 	ship_respawn(&model.user); /*Initializes all objects*/
 	init_asteroids(&model);

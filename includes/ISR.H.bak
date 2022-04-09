@@ -5,7 +5,6 @@
 #include "types.h"
 #include "vbl.h"
 #include <osbind.h>
-#include <osbind>
 
 /*typedefs*/
 typedef UINT8 SCANCODE;
@@ -100,6 +99,8 @@ Purpose: Clears keyboard buffer.
 void clear_ikbd();
 
 /*
+
+Purpose: To get the number of key repeats.
 
 */
 
